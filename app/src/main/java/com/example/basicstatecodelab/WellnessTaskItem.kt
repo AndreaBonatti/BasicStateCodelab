@@ -1,18 +1,21 @@
 package com.example.basicstatecodelab
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Checkbox
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Checkbox
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 
 
 @Composable
@@ -43,7 +46,9 @@ fun WellnessTaskItem(
 }
 
 @Composable
-fun WellnessTaskItem(taskName: String, modifier: Modifier = Modifier) {
+fun WellnessTaskItem(
+    taskName: String, onClose: () -> Unit, modifier: Modifier = Modifier
+) {
 //    var checkedState by remember { mutableStateOf(false) }
     var checkedState by rememberSaveable { mutableStateOf(false) }
 
@@ -51,7 +56,7 @@ fun WellnessTaskItem(taskName: String, modifier: Modifier = Modifier) {
         taskName = taskName,
         checked = checkedState,
         onCheckedChange = { newValue -> checkedState = newValue },
-        onClose = {}, // we will implement this later!
+        onClose = onClose,
         modifier = modifier,
     )
 }
